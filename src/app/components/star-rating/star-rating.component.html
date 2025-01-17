@@ -1,0 +1,13 @@
+<div class="d-flex align-items-center">
+  <ng-container *ngFor="let star of stars">
+    <i
+      class="bi"
+      [ngClass]="{
+        'bi-star-fill': star <= rating,
+        'bi-star-half': star > rating && star - 1 < rating,
+        'bi-star': star > rating
+      }"
+      style="color: gold; font-size: 1rem;"
+    ></i>
+  </ng-container>
+</div>

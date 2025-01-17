@@ -1,0 +1,212 @@
+<section>
+  <div class="container mt-4 pb-5">
+    <div *ngIf="isLoading" class="text-center">
+      <p>Loading product details...</p>
+    </div>
+
+    <div *ngIf="!isLoading && product">
+      <section>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card bg-light">
+                <img [src]="product.images[0]" class="img-fluid m-auto" alt="{{ product.title }}" style="height: 400px;">
+              </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card bg-light">
+                    <img *ngIf="product.images[1]" [src]="product.images[1]" class="img-fluid m-auto" alt="{{ product.title }}" style="height: 200px;">
+                    <img *ngIf="!product.images[1]" [src]="product.images[0]" class="img-fluid m-auto" alt="{{ product.title }}" style="height: 200px;">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card bg-light">
+                    <img *ngIf="product.images[2]" [src]="product.images[2]" class="img-fluid m-auto" alt="{{ product.title }}" style="height: 200px;">
+                    <img *ngIf="!product.images[2]" [src]="product.images[0]" class="img-fluid m-auto" alt="{{ product.title }}" style="height: 200px;">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 pt-4">
+              <div class="card bg-light">
+                  <img *ngIf="product.images[3]" [src]="product.images[3]" class="img-fluid m-auto" alt="{{ product.title }}" style="height: 174px;">
+                  <img *ngIf="!product.images[3]" [src]="product.images[0]" class="img-fluid m-auto" alt="{{ product.title }}" style="height: 174px;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="product-title mt-4"> {{product.title}}</h5>
+            <span class="badge text-bg-success">{{ product.category | camelCase }}</span>
+            <app-star-rating [rating]="product.rating"></app-star-rating>
+            <span class="review-rating-text">({{product.rating}} from {{product.reviews.length}} Reviews)</span>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-3">
+              <div class="row">
+                <div class="col">
+                  <span class="text-black-50 total-price-text">Total Price</span>
+                  <h3 class="product-price mt-1">
+                    ${{calculatedPrice | number: '1.1-1'}}
+                    <span class="product-price ms-2 text-black-50"><s>${{product.price| number: '1.1-1'}}</s></span>
+                  </h3>
+
+                </div>
+                <div class="col ms-4">
+                  <span class="text-black-50 total-price-text">Quantity</span>
+                  <div class="d-flex align-items-center mt-1">
+                    <button
+                      type="button"
+                      class="btn btn-dark rounded-circle btn-sm"
+                      (click)="decrement()"
+                    >
+                      <i class="bi bi-dash"></i>
+                    </button>
+                    <span class="mx-3">{{ quantity }}</span>
+                    <button
+                      type="button"
+                      class="btn btn-dark rounded-circle btn-sm"
+                      (click)="increment()"
+                      [disabled]="quantity >= maxStock"
+                    >
+                      <i class="bi bi-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <p *ngIf="quantity >= maxStock" style="color: red;">
+                  Warning: Quantity exceeds available stock!
+                </p>
+              </div>
+
+              <div class="d-grid gap-2 d-md-flex pt-5">
+                <button class="btn active me-md-2 btn-product-details rounded-pill" type="button">ADD TO CART</button>
+                <button class="btn btn-dark btn-product-details rounded-pill" type="button">BUY IT NOW</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="bg-light">
+  <div class="container ps-0 p-5">
+    <h4 class="product-description-text pb-3 border-bottom">PRODUCT DESCRIPTION</h4>
+    <div class="row p-2">
+      <div class="col">
+       <p>{{product.description}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container ps-0 p-5 pb-4">
+    <h4 class="product-description-text pb-3 border-bottom">PRODUCT DETAILS</h4>
+    <div class="row p-2">
+      <div class="col">
+        <ul class="list-unstyled">
+          <li class="d-flex">
+            <span class="product-detail-key">Brand</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4">{{product.brand}}</span>
+          </li>
+          <li class="d-flex">
+            <span class="product-detail-key">Category</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4">{{product.category | camelCase}}</span>
+          </li>
+          <li class="d-flex">
+            <span class="product-detail-key">Weight</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4">{{product.weight}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <ul class="list-unstyled">
+          <li class="d-flex">
+            <span class="product-detail-key">Tags</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4"><span class="tag badge text-bg-secondary" *ngFor="let tag of product.tags">{{tag | camelCase}}</span></span>
+          </li>
+          <li class="d-flex" *ngIf="product.dimensions">
+            <span class="product-detail-key">Width</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4">{{ product.dimensions.width }} cm</span>
+          </li>
+          <li class="d-flex" *ngIf="product.dimensions">
+            <span class="product-detail-key">Height</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4">{{product.dimensions.height}} cm</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-light">
+  <div class="container ps-0 p-5 pb-3">
+    <h4 class="product-description-text">RATING & REVIEWS ({{product.reviews.length}})</h4>
+    <div class="row">
+      <div class="col">
+        <p class="text-black-50 review-rating-count-text">
+          Showing <span class="text-black">3</span> results from total of <span class="text-black">{{product.reviews.length}}</span> reviews
+        </p>
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col-6 reviews-rating" *ngFor="let review of product.reviews">
+        <div class="card p-3 mt-1 mb-4">
+          <p class="reviews-text text-black">{{review.reviewerName}} <span class="review-sub-title-text text-black-50 p-2">{{ review.date | relativeDate }}</span></p>
+          <app-star-rating [rating]="review.rating"></app-star-rating>
+
+          <p class="text-black-50 review-comments pt-3">{{review.comment}}</p>
+        </div>
+      </div>
+      <p></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container ps-0 py-5">
+    <h4 class="product-description-text ps-0 p-3 border-bottom">OTHER INFORMATIONS</h4>
+    <div class="row p-2">
+      <div class="col-3">
+        <ul class="list-unstyled">
+          <li class="d-flex">
+            <span class="product-detail-key">Warranty Information</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4">{{product.warrantyInformation}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-4">
+        <ul class="list-unstyled">
+          <li class="d-flex">
+            <span class="product-detail-key">Shipping Information</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4">{{product.shippingInformation}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-4">
+        <ul class="list-unstyled">
+          <li class="d-flex">
+            <span class="product-detail-key">Return Policy</span>
+            <span class="product-detail-colon">:</span>
+            <span class="product-detail-value ps-4">{{product.returnPolicy}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

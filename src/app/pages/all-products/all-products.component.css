@@ -1,0 +1,25 @@
+.card {
+  border: 0;
+  box-shadow: 5px 5px 2px #eee;
+  border-radius: 1.75rem;
+}
+.card-title a{
+  font-size: 17px;
+  text-decoration: none;
+  color: rgb(247, 133, 133);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.card-text{
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+img.card-img-top{
+  width: 150px;
+  height: 150px;
+}

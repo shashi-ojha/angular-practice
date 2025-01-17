@@ -1,0 +1,101 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+.card {
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px 3px #fff;
+  border: 0;
+}
+
+h1, h2, h3, h4, h5, p, button {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.total-price-text{
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.product-price {
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.btn-sm {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.btn-product-details {
+  padding-right: 5.1rem;
+  padding-left: 5.1rem;
+}
+
+.ms-4 {
+  margin-left: 10rem !important;
+}
+
+.review-rating-text {
+  font-size: 12px;
+  color: darkgray;
+  font-family: "Times New Roman", Times, serif;
+}
+
+s {
+  text-decoration: line-through;
+  text-decoration-color: #999;
+  text-decoration-thickness: 1px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.review-rating-count-text {
+  font-size: 13px;
+  color: rgb(179, 175, 175);
+  font-family: "Times New Roman", Times, serif;
+}
+.review-sub-title-text {
+  font-size: 12px;
+  color: darkgray;
+  font-family: "Times New Roman", Times, serif;
+}
+
+p.reviews-text {
+  margin-top: 0;
+  margin-bottom: 0 !important;
+}
+
+.review-comments {
+  font-size: 14px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.reviews-rating.bi {
+  font-size: 12px;
+}
+
+.product-detail-key {
+  font-weight: bold;
+  width: 150px;
+  font-size: 14px;
+  font-family: "Times New Roman", Times, serif;
+}
+.product-detail-colon {
+  width: 10px;
+  text-align: center;
+}
+.product-detail-value {
+  flex: 1;
+  font-size: 14px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 3px;
+  background-color: #f0f0f0;
+  color: #333;
+}
