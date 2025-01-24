@@ -7,6 +7,10 @@
   background-color: #fff;
 } */
 
+h1, h2, h3, h4, h5, h6, p, span, button, input, small, strong {
+  font-family: 'Poppins', sans-serif;
+}
+
 html, body {
   height: 100%; /* Ensures the page takes up the full height of the viewport */
   margin: 0;    /* Removes default margin to prevent layout issues */
@@ -29,6 +33,5 @@ html, body {
 }
 
 .footer {
-  flex-shrink: 0; /* Prevents the footer from shrinking or moving */
-  font-family: "Gill Sans Extrabold", sans-serif;
+  flex-shrink: 0;
 }

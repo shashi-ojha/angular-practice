@@ -25,7 +25,8 @@ h1, h2 {
 }
 
 #vision {
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
+  background-color: #fff;
   padding: 40px 20px;
 }
 

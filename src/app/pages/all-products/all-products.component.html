@@ -1,15 +1,14 @@
+<app-slider></app-slider>
  <div class="container mt-4">
-  <!-- <app-breadcrumb></app-breadcrumb> -->
   <div *ngIf="isLoading" class="text-center">
     <p>Loading products...</p>
   </div>
-
   <div *ngIf="!isLoading">
     <div class="d-flex flex-wrap mb-3">
       <button
         *ngFor="let category of categories"
         type="button"
-        class="btn btn-sm m-2"
+        class="btn btn-sm m-1"
         [ngClass]="{'btn-secondary': activeCategory === category, 'btn-outline-secondary': activeCategory !== category}"
         (click)="filterByCategory(category)"
       >
@@ -23,7 +22,7 @@
           <img [src]="product.images[0]" class="card-img-top m-auto" alt="{{ product.title }}">
           <div class="card-body">
             <h5 class="card-title">
-              <a href="/product-details/{{product.id}}">{{ product.title | truncate:25 }}</a>
+              <a routerLink="/product-details/{{product.id}}">{{ product.title | truncate:25 }}</a>
             </h5>
             <p class="card-text">{{ product.description | truncate:100 }}</p>
             <div class="d-flex justify-content-between align-items-center">

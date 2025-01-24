@@ -1,0 +1,225 @@
+h1, h2, h3, h4, h5, h6, p, span, button, input, small, strong, footer {
+  font-family: 'Poppins', sans-serif;
+}
+.cart-wrapper {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.product-card {
+  background: white;
+  border-radius: 12px;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+}
+
+.quantity-input {
+  width: 60px;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 12px;
+  position: sticky;
+  top: 20px;
+}
+
+.checkout-btn {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border: none;
+  transition: transform 0.2s;
+}
+
+.checkout-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+}
+
+.remove-btn {
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.remove-btn:hover {
+  color: #991b1b;
+}
+
+.quantity-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #f3f4f6;
+  border: none;
+  transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+  background: #e5e7eb;
+}
+
+.discount-badge {
+  background: #dcfce7;
+  color: #166534;
+  font-size: 0.8rem;
+  padding: 3px 7px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.discount-price{
+  font-family: 'Poppins', sans-serif;
+}
+
+.product-total-price{
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+}
+
+  /* Base Styling */
+.empty-cart {
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 600px;
+  animation: fadeIn 1s ease-out; /* Entry Animation */
+}
+
+.cart-image {
+  width: 200px;
+  margin-bottom: 20px;
+  animation: slideDown 1s ease-out; /* Entry Animation */
+}
+
+.cart-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  animation: fadeInUp 1.2s ease-out; /* Entry Animation */
+}
+
+.cart-caption {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+  animation: fadeInUp 1.4s ease-out; /* Entry Animation */
+}
+
+/* Buttons Styling */
+.cart-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-custom {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 10px 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease; /* Smooth hover animation */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 1.6s ease-out; /* Entry Animation */
+}
+
+.btn-custom-alt {
+  background-color: #6c757d;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 10px 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 1.8s ease-out; /* Entry Animation */
+}
+
+.btn-custom:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1); /* Hover Effect */
+}
+
+.btn-custom-alt:hover {
+  background-color: #5a6268;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1); /* Hover Effect */
+}
+
+/* Keyframes for Animations */
+
+/* Fade In */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Fade In and Slide Down */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade In and Slide Up */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Rotate on Hover (Optional Icon Animation) */
+.cart-image:hover {
+  transform: rotate(10deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.fa-paypal {
+  font-size: 30px;
+  position: absolute;
+}
+
+.product-price {
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+}

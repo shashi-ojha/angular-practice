@@ -5,6 +5,8 @@ import { Product } from '../../models/interfaces/product.interface';
 import { StarRatingComponent } from "../../components/star-rating/star-rating.component";
 import { ProductService } from '../../services/product.service';
 import { TruncatePipe } from "../../pipes/truncate.pipe";
+import { RouterModule } from '@angular/router';
+import { SliderComponent } from "../../components/slider/slider.component";
 // import { BreadcrumbComponent } from "../../components/breadcrumb/breadcrumb.component";
 
 
@@ -14,7 +16,7 @@ type ResponseData = { products: Product[] } | any;
   selector: 'app-all-products',
   templateUrl: './all-products.component.html',
   styleUrls: ['./all-products.component.css'],
-  imports: [CommonModule, CamelCasePipe, StarRatingComponent, TruncatePipe]
+  imports: [CommonModule, CamelCasePipe, StarRatingComponent, TruncatePipe, RouterModule, SliderComponent]
 })
 export class AllProductsComponent implements OnInit {
   products: Product[] = [];

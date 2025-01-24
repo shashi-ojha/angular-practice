@@ -1,23 +1,88 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
 
-declare var bootstrap: any;
+declare let bootstrap: any;
 
 @Component({
   selector: 'app-topheader',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule], // Add ReactiveFormsModule here
   templateUrl: './topheader.component.html',
-  styleUrl: './topheader.component.css'
+  styleUrls: ['./topheader.component.css'],
 })
-export class TopheaderComponent {
-  loggedIn = false;
-  loggedInUserEmail: string = '';
-  email: string = '';
-  password: string = '';
-  emailError: string = '';
-  passwordError: string = '';
+export class TopheaderComponent implements OnInit {
+  loggedAfterIn = false;
+  user: any = null;
+  loginForm!: FormGroup;
+  loginError = '';
+  isLoading = false;
+  cartProducts: any[] = [];
+  cartProductsCount: number = 0;
+  totalCartPrice: number = 0;
+  hoverCart: boolean = false;
+
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.authService.initializeAuthState();
+
+    this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+      this.loggedAfterIn = isLoggedIn;
+    });
+
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    });
+
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+      this.fetchCartProducts();
+    });
+
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
+
+  fetchCartProducts() {
+    this.authService.fetchCarts().subscribe({
+      next: (response) => {
+        if (response.carts && response.carts.length > 0) {
+          const firstCart = response.carts[0];
+          this.cartProducts = firstCart.products; // Save product list
+          this.cartProductsCount = this.cartProducts.length; // Count the products
+
+          // Calculate total discounted price
+          this.totalCartPrice = this.cartProducts.reduce(
+            (sum, product) => sum + product.discountedTotal,
+            0
+          );
+        } else {
+          this.cartProducts = [];
+          this.cartProductsCount = 0;
+          this.totalCartPrice = 0;
+        }
+      },
+      error: (error) => {
+        console.error('Error loading carts:', error);
+        this.cartProducts = [];
+        this.cartProductsCount = 0;
+        this.totalCartPrice = 0;
+      },
+    });
+  }
+
+  viewCart() {
+    this.router.navigate(['/cart']); // Redirect to cart page
+  }
+
+  checkout() {
+    this.router.navigate(['/checkout']); // Redirect to checkout page
+  }
 
 
   openLoginModal() {
@@ -29,48 +94,39 @@ export class TopheaderComponent {
   }
 
   login() {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/; // Password validation regex
+    this.loginError = '';
 
-    // Reset error messages
-    this.emailError = '';
-    this.passwordError = '';
-
-    // Validate email
-    if (!this.email) {
-      this.emailError = 'Email is required.';
-    } else if (!emailRegex.test(this.email)) {
-      this.emailError = 'Please enter a valid email.';
+    if (this.loginForm.invalid) {
+      this.loginError = 'Please fill in all required fields correctly.';
+      return;
     }
 
-    // Validate password
-    if (!this.password) {
-      this.passwordError = 'Password is required.';
-    } else if (!passwordRegex.test(this.password)) {
-      this.passwordError = `Password must be at least 8 characters long and include:
-        - At least 1 uppercase letter
-        - At least 1 lowercase letter
-        - At least 1 special character
-        - At least 1 number.`;
-    }
+    this.isLoading = true;
 
-    // Check if there are any validation errors
-    if (this.emailError || this.passwordError) {
-      return; // Stop the function if there are errors
-    }
+    const credentials = this.loginForm.value;
 
-    // If validations pass
-    this.loggedIn = true;
-    this.loggedInUserEmail = this.email;
-    this.email = '';
-    this.password = '';
+    this.authService.login(credentials).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.loggedAfterIn = true;
+        this.user = response;
 
-    // Close the modal
-    const modalElement = document.getElementById('loginModal');
-    if (modalElement) {
-      const modal = bootstrap.Modal.getInstance(modalElement);
-      modal.hide();
-    }
+        const modalElement = document.getElementById('loginModal');
+        if (modalElement) {
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          modal?.hide();
+        }
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.loginError = error;
+      },
+    });
   }
 
+  logout() {
+    this.authService.logout();
+    this.loggedAfterIn = false;
+    this.user = null;
+  }
 }

@@ -1,6 +1,16 @@
+h1, h2, h3, h4, h5, h6, p, span, button, input, small, strong, a, img {
+  font-family: 'Poppins', sans-serif;
+}
+
 .img-logo{
   width: 50px;
+  font-family: 'Poppins', sans-serif;
 }
-nav {
-  font-family: "Gill Sans Extrabold", sans-serif;
+
+.header-wrapper {
+  background: white;
+  transition: transform 0.2s;
+}
+.header-wrapper:hover {
+  transform: translateY(-2px);
 }
